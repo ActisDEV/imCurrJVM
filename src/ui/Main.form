@@ -59,10 +59,10 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="outputPanel" alignment="0" max="32767" attributes="0"/>
-                      <Component id="inputPanel" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="outputPanel" max="32767" attributes="0"/>
+                      <Component id="inputPanel" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -88,6 +88,7 @@
                           <Component id="chooseFileIN" pref="178" max="32767" attributes="0"/>
                           <Component id="inputButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="inputField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="clearButtonIN" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -96,12 +97,15 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="inputField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chooseFileIN" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="inputButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="clearButtonIN" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -128,6 +132,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="clearButtonIN">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clear"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="outputPanel">
@@ -148,6 +157,7 @@
                           <Component id="outputField" max="32767" attributes="0"/>
                           <Component id="chooseFileOUT" pref="178" max="32767" attributes="0"/>
                           <Component id="outputButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="clearButtonOUT" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -159,9 +169,11 @@
                       <Component id="chooseFileOUT" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="outputButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="outputField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="outputField" min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="clearButtonOUT" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -177,10 +189,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Choose file"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseFileOUTActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="outputButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Output"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outputButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="clearButtonOUT">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
             </Component>
           </SubComponents>

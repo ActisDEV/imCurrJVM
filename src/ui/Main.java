@@ -24,8 +24,9 @@
 package ui;
 
 import javax.swing.*;
+import java.io.*;
+import java.util.*;
 
-import java.io.*; 
 /**
  *
  * @author Денис
@@ -37,11 +38,10 @@ public class Main extends javax.swing.JFrame {
     File inputFile;
     File outputFile;
     
-
-    
     String inputPath; //путь до файла ввода
     String outputPath; //путь до файла вывода
     String inputText; //вводимый текст
+    String outputLine;
     
     /**
      * Creates new form Main
@@ -64,10 +64,12 @@ public class Main extends javax.swing.JFrame {
         inputField = new javax.swing.JTextField();
         chooseFileIN = new javax.swing.JButton();
         inputButton = new javax.swing.JButton();
+        clearButtonIN = new javax.swing.JButton();
         outputPanel = new javax.swing.JPanel();
         outputField = new javax.swing.JTextField();
         chooseFileOUT = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
+        clearButtonOUT = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("imCurrJVM");
@@ -92,6 +94,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        clearButtonIN.setText("Clear");
+
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
         inputPanelLayout.setHorizontalGroup(
@@ -101,18 +105,22 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chooseFileIN, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                     .addComponent(inputButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputField))
+                    .addComponent(inputField)
+                    .addComponent(clearButtonIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chooseFileIN)
-                .addGap(18, 18, 18)
-                .addComponent(inputButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(clearButtonIN)
+                .addContainerGap())
         );
 
         outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text output"));
@@ -121,8 +129,20 @@ public class Main extends javax.swing.JFrame {
         outputField.setToolTipText("Output text will be here!");
 
         chooseFileOUT.setText("Choose file");
+        chooseFileOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileOUTActionPerformed(evt);
+            }
+        });
 
         outputButton.setText("Output");
+        outputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outputButtonActionPerformed(evt);
+            }
+        });
+
+        clearButtonOUT.setText("Clear");
 
         javax.swing.GroupLayout outputPanelLayout = new javax.swing.GroupLayout(outputPanel);
         outputPanel.setLayout(outputPanelLayout);
@@ -133,7 +153,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(outputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(outputField)
                     .addComponent(chooseFileOUT, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                    .addComponent(outputButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(outputButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(clearButtonOUT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         outputPanelLayout.setVerticalGroup(
@@ -142,9 +163,11 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(chooseFileOUT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outputButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(clearButtonOUT)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -161,9 +184,9 @@ public class Main extends javax.swing.JFrame {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(outputPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -190,11 +213,38 @@ public class Main extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
             inputText = inputField.getText();
-            inputWriter.write(" !#+ " + inputText + " !#-");
+            inputWriter.write("\r\n!#+\r\n" + inputText + "\r\n!#\r\n"); //используем строки !#+ и !#- для определения границ сообщения
         } catch (IOException ex1) {
             System.out.println(ex1.getMessage());
         }
     }//GEN-LAST:event_inputButtonActionPerformed
+
+    private void chooseFileOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileOUTActionPerformed
+        fileChooser.showDialog(null, "Load");
+        outputFile = fileChooser.getSelectedFile();
+        outputPath = outputFile.getPath();
+    }//GEN-LAST:event_chooseFileOUTActionPerformed
+
+    private void outputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputButtonActionPerformed
+        try (BufferedReader reader = new BufferedReader(new FileReader(outputPath))) {
+            List<String> lines; //здесь и далее просто пихаем строки в список
+            lines = new ArrayList<>();
+            while ((outputLine = reader.readLine()) != null) {
+                lines.add(outputLine);
+            }
+            String[] linesAsArray; //преобразовывание спика в массив
+            linesAsArray = lines.toArray(new String[lines.size()]);
+            
+            for (int i = 0; i < 2147483647; i++) {
+                if ("!#+".equals(linesAsArray[i])) {
+                    outputField.setText(linesAsArray[i+1]);
+                    break;
+                }
+            }
+        } catch (IOException ex2) {
+            System.out.println(ex2.getMessage());
+        }
+    }//GEN-LAST:event_outputButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,15 +262,11 @@ public class Main extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -232,6 +278,8 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chooseFileIN;
     private javax.swing.JButton chooseFileOUT;
+    private javax.swing.JButton clearButtonIN;
+    private javax.swing.JButton clearButtonOUT;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputField;
     private javax.swing.JPanel inputPanel;
