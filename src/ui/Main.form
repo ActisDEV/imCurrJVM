@@ -136,6 +136,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearButtonINActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -205,6 +208,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearButtonOUTActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

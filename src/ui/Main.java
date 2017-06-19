@@ -43,6 +43,8 @@ public class Main extends javax.swing.JFrame {
     String inputText; //вводимый текст
     String outputLine;
     
+    int x; //для счёта строк в файле
+    
     /**
      * Creates new form Main
      */
@@ -95,6 +97,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         clearButtonIN.setText("Clear");
+        clearButtonIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonINActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
@@ -143,6 +150,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         clearButtonOUT.setText("Clear");
+        clearButtonOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonOUTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout outputPanelLayout = new javax.swing.GroupLayout(outputPanel);
         outputPanel.setLayout(outputPanelLayout);
@@ -213,7 +225,7 @@ public class Main extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
             inputText = inputField.getText();
-            inputWriter.write("\r\n!#+\r\n" + inputText + "\r\n!#\r\n"); //используем строки !#+ и !#- для определения границ сообщения
+            inputWriter.write("\r\n!#+\r\n" + inputText); //используем строки !#+
         } catch (IOException ex1) {
             System.out.println(ex1.getMessage());
         }
@@ -231,20 +243,33 @@ public class Main extends javax.swing.JFrame {
             lines = new ArrayList<>();
             while ((outputLine = reader.readLine()) != null) {
                 lines.add(outputLine);
+                x++;
             }
-            String[] linesAsArray; //преобразовывание спика в массив
-            linesAsArray = lines.toArray(new String[lines.size()]);
             
-            for (int i = 0; i < 2147483647; i++) {
+            String[] linesAsArray; //преобразовывание списка в массив
+            linesAsArray = lines.toArray(new String[lines.size()]);
+
+            for (int i = 0; i <= x; i++) {
                 if ("!#+".equals(linesAsArray[i])) {
                     outputField.setText(linesAsArray[i+1]);
                     break;
+                } else {
+                    outputField.setText("Err! No message!");
                 }
             }
         } catch (IOException ex2) {
             System.out.println(ex2.getMessage());
         }
     }//GEN-LAST:event_outputButtonActionPerformed
+
+    private void clearButtonINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonINActionPerformed
+        inputText = null;
+        inputField.setText("");
+    }//GEN-LAST:event_clearButtonINActionPerformed
+
+    private void clearButtonOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonOUTActionPerformed
+        outputField.setText("");
+    }//GEN-LAST:event_clearButtonOUTActionPerformed
 
     /**
      * @param args the command line arguments
