@@ -116,11 +116,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Choose file"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseFileINActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="inputButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Input"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

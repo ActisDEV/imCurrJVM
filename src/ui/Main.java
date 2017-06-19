@@ -23,12 +23,26 @@
  */
 package ui;
 
+import javax.swing.*;
+
+import java.io.*; 
 /**
  *
  * @author Денис
  */
 public class Main extends javax.swing.JFrame {
 
+    JFileChooser fileChooser = new JFileChooser(); //выбор файлов
+    
+    File inputFile;
+    File outputFile;
+    
+
+    
+    String inputPath; //путь до файла ввода
+    String outputPath; //путь до файла вывода
+    String inputText; //вводимый текст
+    
     /**
      * Creates new form Main
      */
@@ -65,8 +79,18 @@ public class Main extends javax.swing.JFrame {
         inputField.setToolTipText("Input text here!");
 
         chooseFileIN.setText("Choose file");
+        chooseFileIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileINActionPerformed(evt);
+            }
+        });
 
         inputButton.setText("Input");
+        inputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout inputPanelLayout = new javax.swing.GroupLayout(inputPanel);
         inputPanel.setLayout(inputPanelLayout);
@@ -157,6 +181,21 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chooseFileINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileINActionPerformed
+        fileChooser.showDialog(null, "Load");
+        inputFile = fileChooser.getSelectedFile();
+        inputPath = inputFile.getPath();
+    }//GEN-LAST:event_chooseFileINActionPerformed
+
+    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
+        try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
+            inputText = inputField.getText();
+            inputWriter.write(" !#+ " + inputText + " !#-");
+        } catch (IOException ex1) {
+            System.out.println(ex1.getMessage());
+        }
+    }//GEN-LAST:event_inputButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,10 +224,8 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main().setVisible(true);
         });
     }
 
