@@ -39,7 +39,7 @@ public class Main extends javax.swing.JFrame {
     File outputFile;
     
     String inputPath; //путь до файла ввода
-    String outputPath; //путь до файла вывода
+    public static String outputPath; //путь до файла вывода
     String inputText; //вводимый текст
     String outputLine;
     
@@ -72,6 +72,11 @@ public class Main extends javax.swing.JFrame {
         chooseFileOUT = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
         clearButtonOUT = new javax.swing.JButton();
+        cryptPanel = new javax.swing.JPanel();
+        chooseFileCRYPT = new javax.swing.JButton();
+        encryptButton = new javax.swing.JButton();
+        decryptButton = new javax.swing.JButton();
+        seedField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("imCurrJVM");
@@ -177,9 +182,46 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(outputButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(clearButtonOUT)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(clearButtonOUT))
+        );
+
+        cryptPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Encrypt/Decrypt"));
+
+        chooseFileCRYPT.setText("Choose file");
+
+        encryptButton.setText("Encrypt");
+
+        decryptButton.setText("Decrypt");
+
+        seedField.setToolTipText("Seed for encrypting or decrypting this file (int number)");
+
+        javax.swing.GroupLayout cryptPanelLayout = new javax.swing.GroupLayout(cryptPanel);
+        cryptPanel.setLayout(cryptPanelLayout);
+        cryptPanelLayout.setHorizontalGroup(
+            cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cryptPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(seedField)
+                    .addComponent(chooseFileCRYPT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(cryptPanelLayout.createSequentialGroup()
+                        .addComponent(encryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(decryptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        cryptPanelLayout.setVerticalGroup(
+            cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cryptPanelLayout.createSequentialGroup()
+                .addComponent(chooseFileCRYPT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(decryptButton)
+                    .addComponent(encryptButton))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -188,9 +230,12 @@ public class Main extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cryptPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -198,7 +243,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cryptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -301,10 +348,14 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chooseFileCRYPT;
     private javax.swing.JButton chooseFileIN;
     private javax.swing.JButton chooseFileOUT;
     private javax.swing.JButton clearButtonIN;
     private javax.swing.JButton clearButtonOUT;
+    private javax.swing.JPanel cryptPanel;
+    private javax.swing.JButton decryptButton;
+    private javax.swing.JButton encryptButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputField;
     private javax.swing.JPanel inputPanel;
@@ -312,5 +363,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton outputButton;
     private javax.swing.JTextField outputField;
     private javax.swing.JPanel outputPanel;
+    private javax.swing.JTextField seedField;
     // End of variables declaration//GEN-END:variables
 }
