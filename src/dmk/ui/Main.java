@@ -21,12 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ui;
+package dmk.ui;
 
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
+import dmk.lang.*;
 /**
  *
  * @author Денис
@@ -37,13 +38,23 @@ public class Main extends javax.swing.JFrame {
     
     File inputFile;
     File outputFile;
+    File cryptFile;
     
     String inputPath; //путь до файла ввода
     String outputPath; //путь до файла вывода
+    String cryptPath; //путь до файла шифрования
     String inputText; //вводимый текст
     String outputLine;
+    String encLine;
+    String decLine;
+    String SYMBOL = "!#+";
+       
+    int x; //для счёта строк в файле вывода
+    int y; //для счёта строк в файле шифрования
+    int z; //для счёта строк в файле дешифрования
+    int countSymbols;
     
-    int x; //для счёта строк в файле
+    int seed = -245689;
     
     /**
      * Creates new form Main
@@ -72,31 +83,35 @@ public class Main extends javax.swing.JFrame {
         chooseFileOUT = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
         clearButtonOUT = new javax.swing.JButton();
+        menuPanel = new javax.swing.JPanel();
+        exitButton = new javax.swing.JButton();
+        creditsButton = new javax.swing.JButton();
+        settingsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("imCurrJVM");
 
-        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "imCurrJVM by Actis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 204))); // NOI18N
+        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "imCurrJVM by Actis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text input"));
 
-        inputField.setToolTipText("Input text here!");
+        inputField.setToolTipText(Translations.TOOLTIP_INPUT_FIELD);
 
-        chooseFileIN.setText("Choose file");
+        chooseFileIN.setText(Translations.CHOOSE_FILE);
         chooseFileIN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseFileINActionPerformed(evt);
             }
         });
 
-        inputButton.setText("Input");
+        inputButton.setText(Translations.INPUT);
         inputButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputButtonActionPerformed(evt);
             }
         });
 
-        clearButtonIN.setText("Clear");
+        clearButtonIN.setText(Translations.CLEAR);
         clearButtonIN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearButtonINActionPerformed(evt);
@@ -119,13 +134,12 @@ public class Main extends javax.swing.JFrame {
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chooseFileIN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inputButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(clearButtonIN)
                 .addContainerGap())
         );
@@ -133,23 +147,23 @@ public class Main extends javax.swing.JFrame {
         outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text output"));
 
         outputField.setEditable(false);
-        outputField.setToolTipText("Output text will be here!");
+        outputField.setToolTipText(Translations.TOOLTIP_OUTPUT_FIELD);
 
-        chooseFileOUT.setText("Choose file");
+        chooseFileOUT.setText(Translations.CHOOSE_FILE);
         chooseFileOUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseFileOUTActionPerformed(evt);
             }
         });
 
-        outputButton.setText("Output");
+        outputButton.setText(Translations.OUTPUT);
         outputButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outputButtonActionPerformed(evt);
             }
         });
 
-        clearButtonOUT.setText("Clear");
+        clearButtonOUT.setText(Translations.CLEAR);
         clearButtonOUT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearButtonOUTActionPerformed(evt);
@@ -164,7 +178,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(outputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(outputField)
-                    .addComponent(chooseFileOUT, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(chooseFileOUT, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                     .addComponent(outputButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(clearButtonOUT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -176,10 +190,51 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outputButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(outputField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clearButtonOUT)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
+
+        exitButton.setText(Translations.EXIT);
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+
+        creditsButton.setText(Translations.CREDITS);
+
+        settingsButton.setText(Translations.SETTINGS);
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(exitButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(creditsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(settingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addComponent(settingsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(creditsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(exitButton)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -190,16 +245,16 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(outputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(inputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,7 +280,7 @@ public class Main extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
             inputText = inputField.getText();
-            inputWriter.write("\r\n!#+\r\n" + inputText); //используем строки !#+
+            inputWriter.write(SYMBOL + inputText + "\r\n"); //используем !#+ для поиска сообщения
         } catch (IOException ex1) {
             System.out.println(ex1.getMessage());
         }
@@ -250,7 +305,7 @@ public class Main extends javax.swing.JFrame {
             linesAsArray = lines.toArray(new String[lines.size()]);
 
             for (int i = 0; i <= x; i++) {
-                if ("!#+".equals(linesAsArray[i])) {
+                if (SYMBOL.equals(linesAsArray[i])) {
                     outputField.setText(linesAsArray[i+1]);
                     break;
                 } else {
@@ -270,6 +325,15 @@ public class Main extends javax.swing.JFrame {
     private void clearButtonOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonOUTActionPerformed
         outputField.setText("");
     }//GEN-LAST:event_clearButtonOUTActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
+        Settings settingsWindow = new Settings();
+        settingsWindow.setVisible(true);
+    }//GEN-LAST:event_settingsButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,6 +362,14 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
         });
+        
+        boolean fileExists = Lang.FileChecker();
+        if (fileExists == true) {
+            //
+        } else {
+            Lang.LangFileCreate();
+        }
+        Translations.setTranslations();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -305,12 +377,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton chooseFileOUT;
     private javax.swing.JButton clearButtonIN;
     private javax.swing.JButton clearButtonOUT;
+    private javax.swing.JButton creditsButton;
+    private javax.swing.JButton exitButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputField;
-    private javax.swing.JPanel inputPanel;
+    public static javax.swing.JPanel inputPanel;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel menuPanel;
     private javax.swing.JButton outputButton;
     private javax.swing.JTextField outputField;
     private javax.swing.JPanel outputPanel;
+    private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 }
