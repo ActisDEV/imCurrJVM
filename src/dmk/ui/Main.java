@@ -28,7 +28,6 @@ import java.io.*;
 import java.util.*;
 
 import dmk.lang.*;
-
 /**
  *
  * @author Денис
@@ -200,10 +199,20 @@ public class Main extends javax.swing.JFrame {
         menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
 
         exitButton.setText(Translations.EXIT);
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
 
         creditsButton.setText(Translations.CREDITS);
 
         settingsButton.setText(Translations.SETTINGS);
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
@@ -316,6 +325,15 @@ public class Main extends javax.swing.JFrame {
     private void clearButtonOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonOUTActionPerformed
         outputField.setText("");
     }//GEN-LAST:event_clearButtonOUTActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
+        Settings settingsWindow = new Settings();
+        settingsWindow.setVisible(true);
+    }//GEN-LAST:event_settingsButtonActionPerformed
 
     /**
      * @param args the command line arguments

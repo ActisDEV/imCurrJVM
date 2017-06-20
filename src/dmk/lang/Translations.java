@@ -23,11 +23,14 @@
  */
 package dmk.lang;
 
+import java.io.File;
+import java.io.FileReader;
 /**
  *
  * @author Денис
  */
 public class Translations {
+    //Main.java
     public static String CHOOSE_FILE = "Choose file";
     public static String INPUT = "Input";
     public static String OUTPUT = "Output";
@@ -40,4 +43,7 @@ public class Translations {
     public static String BORDER_INPUT_TEXT = "Text input";
     public static String BORDER_OUTPUT_TEXT = "Text output";
     public static String BORDER_MENU_TEXT = "Menu";
+    //Settings.java
+    public static String BORDER_LANGUAGE_TEXT = "Language settings";
+    public static String SAVE = "Save";
 }
