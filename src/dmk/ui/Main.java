@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
     String outputLine;
     String encLine;
     String decLine;
-    String SYMBOL = "\r\n!#+\r\n";
+    String SYMBOL = "!#+";
        
     int x; //для счёта строк в файле вывода
     int y; //для счёта строк в файле шифрования
@@ -283,7 +283,7 @@ public class Main extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
             inputText = inputField.getText();
-            inputWriter.write(SYMBOL + inputText + "\r\n"); //используем !#+ для поиска сообщения
+            inputWriter.write("\r\n" + SYMBOL + "\r\n" + inputText + "\r\n"); //используем !#+ для поиска сообщения
         } catch (IOException ex1) {
             System.out.println(ex1.getMessage());
         }
