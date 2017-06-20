@@ -54,8 +54,6 @@ public class Main extends javax.swing.JFrame {
     int z; //для счёта строк в файле дешифрования
     int countSymbols;
     
-    int seed = -245689;
-    
     /**
      * Creates new form Main
      */
@@ -93,7 +91,7 @@ public class Main extends javax.swing.JFrame {
 
         mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "imCurrJVM by Actis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
-        inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text input"));
+        inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_INPUT_TEXT));
 
         inputField.setToolTipText(Translations.TOOLTIP_INPUT_FIELD);
 
@@ -144,7 +142,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text output"));
+        outputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_OUTPUT_TEXT));
 
         outputField.setEditable(false);
         outputField.setToolTipText(Translations.TOOLTIP_OUTPUT_FIELD);
@@ -196,7 +194,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
+        menuPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_MENU_TEXT));
 
         exitButton.setText(Translations.EXIT);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +204,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         creditsButton.setText(Translations.CREDITS);
+        creditsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditsButtonActionPerformed(evt);
+            }
+        });
 
         settingsButton.setText(Translations.SETTINGS);
         settingsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -335,6 +338,11 @@ public class Main extends javax.swing.JFrame {
         settingsWindow.setVisible(true);
     }//GEN-LAST:event_settingsButtonActionPerformed
 
+    private void creditsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditsButtonActionPerformed
+        Credits credits = new Credits();
+        credits.setVisible(true);
+    }//GEN-LAST:event_creditsButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -362,7 +370,6 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
         });
-        
         boolean fileExists = Lang.FileChecker();
         if (fileExists == true) {
             //

@@ -70,10 +70,8 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="inputPanel">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Text input"/>
-              </Border>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_INPUT_TEXT)" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -152,10 +150,8 @@
         </Container>
         <Container class="javax.swing.JPanel" name="outputPanel">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Text output"/>
-              </Border>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_OUTPUT_TEXT)" type="code"/>
             </Property>
           </Properties>
 
@@ -232,10 +228,8 @@
         </Container>
         <Container class="javax.swing.JPanel" name="menuPanel">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Menu"/>
-              </Border>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="javax.swing.BorderFactory.createTitledBorder(Translations.BORDER_MENU_TEXT)" type="code"/>
             </Property>
           </Properties>
 
@@ -283,6 +277,9 @@
                   <Connection code="Translations.CREDITS" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creditsButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="settingsButton">
               <Properties>
