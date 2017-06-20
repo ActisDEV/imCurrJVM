@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ui;
+package dmk.icj.ui;
 
 import javax.swing.*;
 import java.io.*;
@@ -37,13 +37,23 @@ public class Main extends javax.swing.JFrame {
     
     File inputFile;
     File outputFile;
+    File cryptFile;
     
     String inputPath; //путь до файла ввода
-    public static String outputPath; //путь до файла вывода
+    String outputPath; //путь до файла вывода
+    String cryptPath; //путь до файла шифрования
     String inputText; //вводимый текст
     String outputLine;
+    String encLine;
+    String decLine;
+    String SYMBOL = "!#+";
+       
+    int x; //для счёта строк в файле вывода
+    int y; //для счёта строк в файле шифрования
+    int z; //для счёта строк в файле дешифрования
+    int countSymbols;
     
-    int x; //для счёта строк в файле
+    int seed = -245689;
     
     /**
      * Creates new form Main
@@ -72,16 +82,11 @@ public class Main extends javax.swing.JFrame {
         chooseFileOUT = new javax.swing.JButton();
         outputButton = new javax.swing.JButton();
         clearButtonOUT = new javax.swing.JButton();
-        cryptPanel = new javax.swing.JPanel();
-        chooseFileCRYPT = new javax.swing.JButton();
-        encryptButton = new javax.swing.JButton();
-        decryptButton = new javax.swing.JButton();
-        seedField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("imCurrJVM");
 
-        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "imCurrJVM by Actis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 204))); // NOI18N
+        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "imCurrJVM by Actis", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(0, 0, 204))); // NOI18N
 
         inputPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Text input"));
 
@@ -186,67 +191,21 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(clearButtonOUT))
         );
 
-        cryptPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Encrypt/Decrypt"));
-
-        chooseFileCRYPT.setText("Choose file");
-
-        encryptButton.setText("Encrypt");
-
-        decryptButton.setText("Decrypt");
-
-        seedField.setToolTipText("Seed for encrypting or decrypting this file (int number)");
-
-        javax.swing.GroupLayout cryptPanelLayout = new javax.swing.GroupLayout(cryptPanel);
-        cryptPanel.setLayout(cryptPanelLayout);
-        cryptPanelLayout.setHorizontalGroup(
-            cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cryptPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(seedField)
-                    .addComponent(chooseFileCRYPT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(cryptPanelLayout.createSequentialGroup()
-                        .addComponent(encryptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(decryptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        cryptPanelLayout.setVerticalGroup(
-            cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cryptPanelLayout.createSequentialGroup()
-                .addComponent(chooseFileCRYPT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(cryptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(decryptButton)
-                    .addComponent(encryptButton))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cryptPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cryptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(outputPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(inputPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,7 +216,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -272,7 +231,7 @@ public class Main extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         try (FileWriter inputWriter = new FileWriter(inputPath, true)) {
             inputText = inputField.getText();
-            inputWriter.write("\r\n!#+\r\n" + inputText); //используем строки !#+
+            inputWriter.write(SYMBOL + inputText + "\r\n"); //используем !#+ для поиска сообщения
         } catch (IOException ex1) {
             System.out.println(ex1.getMessage());
         }
@@ -297,7 +256,7 @@ public class Main extends javax.swing.JFrame {
             linesAsArray = lines.toArray(new String[lines.size()]);
 
             for (int i = 0; i <= x; i++) {
-                if ("!#+".equals(linesAsArray[i])) {
+                if (SYMBOL.equals(linesAsArray[i])) {
                     outputField.setText(linesAsArray[i+1]);
                     break;
                 } else {
@@ -348,14 +307,10 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton chooseFileCRYPT;
     private javax.swing.JButton chooseFileIN;
     private javax.swing.JButton chooseFileOUT;
     private javax.swing.JButton clearButtonIN;
     private javax.swing.JButton clearButtonOUT;
-    private javax.swing.JPanel cryptPanel;
-    private javax.swing.JButton decryptButton;
-    private javax.swing.JButton encryptButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputField;
     private javax.swing.JPanel inputPanel;
@@ -363,6 +318,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton outputButton;
     private javax.swing.JTextField outputField;
     private javax.swing.JPanel outputPanel;
-    private javax.swing.JTextField seedField;
     // End of variables declaration//GEN-END:variables
 }
