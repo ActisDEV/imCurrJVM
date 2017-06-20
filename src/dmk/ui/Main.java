@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
     String outputLine;
     String encLine;
     String decLine;
-    String SYMBOL = "!#+\r\n";
+    String SYMBOL = "\r\n!#+\r\n";
        
     int x; //для счёта строк в файле вывода
     int y; //для счёта строк в файле шифрования
