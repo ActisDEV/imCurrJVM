@@ -369,6 +369,7 @@ public class Main extends javax.swing.JFrame {
         } else {
             Lang.LangFileCreate();
         }
+        Translations.setTranslations();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -380,7 +381,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton exitButton;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputField;
-    private javax.swing.JPanel inputPanel;
+    public static javax.swing.JPanel inputPanel;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JButton outputButton;

@@ -23,13 +23,17 @@
  */
 package dmk.ui;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import dmk.lang.*;
 /**
  *
  * @author Денис
  */
 public class Settings extends javax.swing.JFrame {
-
+    
+    FileWriter writer;
     /**
      * Creates new form Settings
      */
@@ -54,7 +58,7 @@ public class Settings extends javax.swing.JFrame {
         inField = new javax.swing.JTextField();
         outField = new javax.swing.JTextField();
         clearLabel = new javax.swing.JLabel();
-        chooseField = new javax.swing.JTextField();
+        clearField = new javax.swing.JTextField();
         crdLabel = new javax.swing.JLabel();
         exitLabel = new javax.swing.JLabel();
         creditsField = new javax.swing.JTextField();
@@ -75,8 +79,8 @@ public class Settings extends javax.swing.JFrame {
         settingsField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
-        settingsLabel1 = new javax.swing.JLabel();
-        settingsField1 = new javax.swing.JTextField();
+        saveLabel = new javax.swing.JLabel();
+        saveField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("imCurrJVM - Settings");
@@ -86,7 +90,7 @@ public class Settings extends javax.swing.JFrame {
         chooseFileLabel.setForeground(new java.awt.Color(0, 0, 204));
         chooseFileLabel.setText("CHOOSE_FILE");
 
-        chooseFileField.setText("Choose file");
+        chooseFileField.setText(Translations.linesAsArray[3]);
 
         inputLabel.setForeground(new java.awt.Color(0, 0, 204));
         inputLabel.setText("INPUT");
@@ -94,14 +98,14 @@ public class Settings extends javax.swing.JFrame {
         outputLabel.setForeground(new java.awt.Color(0, 0, 204));
         outputLabel.setText("OUTPUT");
 
-        inField.setText("Input");
+        inField.setText(Translations.linesAsArray[4]);
 
-        outField.setText("Output");
+        outField.setText(Translations.linesAsArray[5]);
 
         clearLabel.setForeground(new java.awt.Color(0, 0, 204));
         clearLabel.setText("CLEAR");
 
-        chooseField.setText("Clear");
+        clearField.setText(Translations.linesAsArray[6]);
 
         crdLabel.setForeground(new java.awt.Color(0, 0, 204));
         crdLabel.setText("CREDITS");
@@ -109,19 +113,19 @@ public class Settings extends javax.swing.JFrame {
         exitLabel.setForeground(new java.awt.Color(0, 0, 204));
         exitLabel.setText("EXIT");
 
-        creditsField.setText("Credits");
+        creditsField.setText(Translations.linesAsArray[7]);
 
-        exitField.setText("Exit");
+        exitField.setText(Translations.linesAsArray[8]);
 
         tltipInpLabel.setForeground(new java.awt.Color(0, 0, 204));
         tltipInpLabel.setText("TOOLTIP_INPUT_FIELD");
 
-        tltipInField.setText("Input your text here!");
+        tltipInField.setText(Translations.linesAsArray[9]);
 
         TltipOutLabel.setForeground(new java.awt.Color(0, 0, 204));
         TltipOutLabel.setText("TOOLTIP_OUTPUT_FIELD");
 
-        tltipOutField.setText("Output text will be here!");
+        tltipOutField.setText(Translations.linesAsArray[10]);
 
         brdrInLabel.setForeground(new java.awt.Color(0, 0, 204));
         brdrInLabel.setText("BORDER_INPUT_TEXT");
@@ -129,9 +133,9 @@ public class Settings extends javax.swing.JFrame {
         brdrOutLabel.setForeground(new java.awt.Color(0, 0, 204));
         brdrOutLabel.setText("BORDER_OUTPUT_TEXT");
 
-        brdrInField.setText("Text input");
+        brdrInField.setText(Translations.linesAsArray[11]);
 
-        brdrOutField.setText("Text output");
+        brdrOutField.setText(Translations.linesAsArray[12]);
 
         brdrMenuLabel.setForeground(new java.awt.Color(0, 0, 204));
         brdrMenuLabel.setText("BORDER_MENU_TEXT");
@@ -139,17 +143,22 @@ public class Settings extends javax.swing.JFrame {
         brdrLangLabel.setForeground(new java.awt.Color(0, 0, 204));
         brdrLangLabel.setText("BORDER_LANGUAGE_TEXT");
 
-        brdrMnField.setText("Menu");
+        brdrMnField.setText(Translations.linesAsArray[13]);
 
-        brdrLangField.setText("Language settings");
+        brdrLangField.setText(Translations.linesAsArray[14]);
 
         settingsLabel.setForeground(new java.awt.Color(0, 0, 204));
         settingsLabel.setText("SETTINGS");
 
-        settingsField.setText("Settings");
+        settingsField.setText(Translations.linesAsArray[15]);
         settingsField.setToolTipText("");
 
         saveButton.setText(Translations.SAVE);
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         exitButton.setText(Translations.EXIT);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,16 +167,22 @@ public class Settings extends javax.swing.JFrame {
             }
         });
 
-        settingsLabel1.setForeground(new java.awt.Color(0, 0, 204));
-        settingsLabel1.setText("SAVE");
+        saveLabel.setForeground(new java.awt.Color(0, 0, 204));
+        saveLabel.setText("SAVE");
 
-        settingsField1.setText("Save");
-        settingsField1.setToolTipText("");
+        saveField.setText(Translations.linesAsArray[16]);
+        saveField.setToolTipText("");
 
         javax.swing.GroupLayout languagePanelLayout = new javax.swing.GroupLayout(languagePanel);
         languagePanel.setLayout(languagePanelLayout);
         languagePanelLayout.setHorizontalGroup(
             languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, languagePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(saveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(exitButton)
+                .addGap(10, 10, 10))
             .addGroup(languagePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,30 +199,24 @@ public class Settings extends javax.swing.JFrame {
                     .addComponent(brdrLangLabel)
                     .addComponent(brdrMenuLabel)
                     .addComponent(settingsLabel)
-                    .addComponent(settingsLabel1))
+                    .addComponent(saveLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(brdrInField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addComponent(brdrOutField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addComponent(brdrMnField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(brdrInField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(brdrOutField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(brdrMnField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(chooseFileField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(brdrLangField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(brdrLangField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(inField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(outField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(chooseField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(settingsField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addComponent(settingsField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(clearField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(settingsField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(saveField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(creditsField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(exitField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tltipInField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tltipOutField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addComponent(tltipOutField, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, languagePanelLayout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
-                .addComponent(saveButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitButton)
-                .addGap(10, 10, 10))
         );
         languagePanelLayout.setVerticalGroup(
             languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +236,7 @@ public class Settings extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(clearLabel)
-                    .addComponent(chooseField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(crdLabel)
@@ -266,9 +275,9 @@ public class Settings extends javax.swing.JFrame {
                     .addComponent(settingsField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(settingsLabel1)
-                    .addComponent(settingsField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                    .addComponent(saveLabel)
+                    .addComponent(saveField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(languagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(exitButton)))
@@ -298,6 +307,38 @@ public class Settings extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        boolean fileExists = Lang.FileChecker();
+        boolean isSaved = false;
+        if (fileExists == true) {
+            //
+        } else {
+            Lang.LangFileCreate();
+        }
+        try (FileWriter settingsWriter = new FileWriter (Lang.langFileID, false)) {
+            settingsWriter.write(Lang.DEFAULT_MESSAGE);
+            settingsWriter.write("#begin#\r\n");
+            settingsWriter.write(chooseFileField.getText() + "\r\n");
+            settingsWriter.write(inField.getText() + "\r\n");
+            settingsWriter.write(outField.getText() + "\r\n");
+            settingsWriter.write(clearField.getText() + "\r\n");
+            settingsWriter.write(creditsField.getText() + "\r\n");
+            settingsWriter.write(exitField.getText() + "\r\n");
+            settingsWriter.write(tltipInField.getText() + "\r\n");
+            settingsWriter.write(tltipOutField.getText() + "\r\n");
+            settingsWriter.write(brdrInField.getText() + "\r\n");
+            settingsWriter.write(brdrOutField.getText() + "\r\n");
+            settingsWriter.write(brdrMnField.getText() + "\r\n");
+            settingsWriter.write(brdrLangField.getText() + "\r\n");
+            settingsWriter.write(settingsField.getText() + "\r\n");
+            settingsWriter.write(saveField.getText() + "\r\n");
+            settingsWriter.write("#end#");
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+        Translations.setTranslations();
+    }//GEN-LAST:event_saveButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,10 +367,8 @@ public class Settings extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Settings().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Settings().setVisible(true);
         });
     }
 
@@ -343,9 +382,9 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JTextField brdrMnField;
     private javax.swing.JTextField brdrOutField;
     private javax.swing.JLabel brdrOutLabel;
-    private javax.swing.JTextField chooseField;
     private javax.swing.JTextField chooseFileField;
     private javax.swing.JLabel chooseFileLabel;
+    private javax.swing.JTextField clearField;
     private javax.swing.JLabel clearLabel;
     private javax.swing.JLabel crdLabel;
     private javax.swing.JTextField creditsField;
@@ -358,10 +397,10 @@ public class Settings extends javax.swing.JFrame {
     private javax.swing.JTextField outField;
     private javax.swing.JLabel outputLabel;
     private javax.swing.JButton saveButton;
+    private javax.swing.JTextField saveField;
+    private javax.swing.JLabel saveLabel;
     private javax.swing.JTextField settingsField;
-    private javax.swing.JTextField settingsField1;
     private javax.swing.JLabel settingsLabel;
-    private javax.swing.JLabel settingsLabel1;
     private javax.swing.JTextField tltipInField;
     private javax.swing.JLabel tltipInpLabel;
     private javax.swing.JTextField tltipOutField;

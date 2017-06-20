@@ -23,27 +23,68 @@
  */
 package dmk.lang;
 
-import java.io.File;
+import dmk.ui.*;
+
 import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.NullPointerException;
 /**
  *
  * @author Денис
  */
 public class Translations {
     //Main.java
-    public static String CHOOSE_FILE = "Choose file";
-    public static String INPUT = "Input";
-    public static String OUTPUT = "Output";
-    public static String CLEAR = "Clear";
-    public static String CREDITS = "Credits";
-    public static String EXIT = "Exit";
-    public static String SETTINGS = "Settings";
-    public static String TOOLTIP_INPUT_FIELD = "Input your text here!";
-    public static String TOOLTIP_OUTPUT_FIELD = "Output text will be here!";
-    public static String BORDER_INPUT_TEXT = "Text input";
-    public static String BORDER_OUTPUT_TEXT = "Text output";
-    public static String BORDER_MENU_TEXT = "Menu";
+    public static String CHOOSE_FILE;
+    public static String INPUT;
+    public static String OUTPUT;
+    public static String CLEAR;
+    public static String CREDITS;
+    public static String EXIT;
+    public static String SETTINGS;
+    public static String TOOLTIP_INPUT_FIELD;
+    public static String TOOLTIP_OUTPUT_FIELD;
+    public static String BORDER_INPUT_TEXT;
+    public static String BORDER_OUTPUT_TEXT;
+    public static String BORDER_MENU_TEXT;
     //Settings.java
-    public static String BORDER_LANGUAGE_TEXT = "Language settings";
-    public static String SAVE = "Save";
+    public static String BORDER_LANGUAGE_TEXT;
+    public static String SAVE;
+    
+    static String transLine; 
+    public static String[] linesAsArray = new String[17];
+    
+    static int x;
+    
+    public static void setTranslations() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Lang.langFile))) {
+            List<String> lines; //здесь и далее просто пихаем строки в список
+            lines = new ArrayList<>();
+            while (!"#end#".equals(transLine = reader.readLine())) {
+                lines.add(transLine);
+                x++;
+            }
+            linesAsArray = lines.toArray(new String[lines.size()]);
+            
+            CHOOSE_FILE = linesAsArray[3];
+            INPUT = linesAsArray[4];
+            OUTPUT = linesAsArray[5];
+            CLEAR = linesAsArray[6];
+            CREDITS = linesAsArray[7];
+            EXIT = linesAsArray[8];
+            SETTINGS = linesAsArray[9];
+            TOOLTIP_INPUT_FIELD = linesAsArray[10];
+            TOOLTIP_OUTPUT_FIELD = linesAsArray[11];
+            BORDER_INPUT_TEXT = linesAsArray[12];
+            BORDER_OUTPUT_TEXT = linesAsArray[13];
+            BORDER_MENU_TEXT = linesAsArray[14]; 
+            BORDER_LANGUAGE_TEXT = linesAsArray[15];
+            SAVE = linesAsArray[16];
+            
+        } catch (IOException ex2) {
+            System.out.println(ex2.getMessage());
+        }
+    }
 }

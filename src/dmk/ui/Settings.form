@@ -52,7 +52,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="saveButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="exitButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="chooseFileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -68,33 +75,26 @@
                       <Component id="brdrLangLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="brdrMenuLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="settingsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="settingsLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="brdrInField" alignment="1" pref="336" max="32767" attributes="0"/>
-                      <Component id="brdrOutField" alignment="1" pref="336" max="32767" attributes="0"/>
-                      <Component id="brdrMnField" alignment="1" pref="336" max="32767" attributes="0"/>
+                      <Component id="brdrInField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="brdrOutField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="brdrMnField" alignment="1" max="32767" attributes="0"/>
                       <Component id="chooseFileField" alignment="1" max="32767" attributes="0"/>
-                      <Component id="brdrLangField" alignment="1" pref="336" max="32767" attributes="0"/>
+                      <Component id="brdrLangField" alignment="1" max="32767" attributes="0"/>
                       <Component id="inField" alignment="1" max="32767" attributes="0"/>
                       <Component id="outField" alignment="1" max="32767" attributes="0"/>
-                      <Component id="chooseField" alignment="1" max="32767" attributes="0"/>
-                      <Component id="settingsField" alignment="1" pref="336" max="32767" attributes="0"/>
-                      <Component id="settingsField1" alignment="1" pref="336" max="32767" attributes="0"/>
+                      <Component id="clearField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="settingsField" alignment="1" max="32767" attributes="0"/>
+                      <Component id="saveField" alignment="1" max="32767" attributes="0"/>
                       <Component id="creditsField" alignment="1" max="32767" attributes="0"/>
                       <Component id="exitField" alignment="1" max="32767" attributes="0"/>
                       <Component id="tltipInField" alignment="1" max="32767" attributes="0"/>
-                      <Component id="tltipOutField" alignment="1" pref="336" max="32767" attributes="0"/>
+                      <Component id="tltipOutField" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="188" max="32767" attributes="0"/>
-                  <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="exitButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -119,7 +119,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="clearLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="chooseField" min="-2" max="-2" attributes="0"/>
+                      <Component id="clearField" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -168,10 +168,10 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="settingsLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="settingsField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="exitButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -191,7 +191,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="chooseFileField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Choose file"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[3]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="inputLabel">
@@ -212,12 +214,16 @@
         </Component>
         <Component class="javax.swing.JTextField" name="inField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Input"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[4]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="outField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Output"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[5]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="clearLabel">
@@ -228,9 +234,11 @@
             <Property name="text" type="java.lang.String" value="CLEAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="chooseField">
+        <Component class="javax.swing.JTextField" name="clearField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Clear"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[6]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="crdLabel">
@@ -251,12 +259,16 @@
         </Component>
         <Component class="javax.swing.JTextField" name="creditsField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Credits"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[7]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="exitField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Exit"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[8]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="tltipInpLabel">
@@ -269,7 +281,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tltipInField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Input your text here!"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[9]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="TltipOutLabel">
@@ -282,7 +296,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tltipOutField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Output text will be here!"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[10]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="brdrInLabel">
@@ -303,12 +319,16 @@
         </Component>
         <Component class="javax.swing.JTextField" name="brdrInField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Text input"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[11]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="brdrOutField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Text output"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[12]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="brdrMenuLabel">
@@ -329,12 +349,16 @@
         </Component>
         <Component class="javax.swing.JTextField" name="brdrMnField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Menu"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[13]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="brdrLangField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Language settings"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[14]" type="code"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="settingsLabel">
@@ -347,7 +371,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="settingsField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Settings"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[15]" type="code"/>
+            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
@@ -357,6 +383,9 @@
               <Connection code="Translations.SAVE" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="exitButton">
           <Properties>
@@ -368,7 +397,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="settingsLabel1">
+        <Component class="javax.swing.JLabel" name="saveLabel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="0" red="0" type="rgb"/>
@@ -376,9 +405,11 @@
             <Property name="text" type="java.lang.String" value="SAVE"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="settingsField1">
+        <Component class="javax.swing.JTextField" name="saveField">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Save"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Translations.linesAsArray[16]" type="code"/>
+            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>

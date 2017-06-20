@@ -32,11 +32,13 @@ import java.io.FileWriter;
  * @author Денис
  */
 public class Lang {
+    public static String DEFAULT_MESSAGE = "LANGUAGE FILE FOR IMCURRJVM\r\nMADE BY ACTIS\r\n";
     static File langFile;
+    public static String langFileID;
     static boolean fileExists;
     public static boolean FileChecker() {
         String langPath = new File("").getAbsolutePath();
-        String langFileID = langPath.concat("\\lang.txt");
+        langFileID = langPath.concat("\\lang.txt");
         langFile = new File(langFileID);
         fileExists = langFile.exists();
         return fileExists;
@@ -44,10 +46,9 @@ public class Lang {
     
     public static void LangFileCreate() {
         try (FileWriter fileWriter = new FileWriter(langFile)) {
-            fileWriter.write("lang_En {\n");            
+            fileWriter.write(DEFAULT_MESSAGE + "#begin#\r\n" + "Choose file\r\n" + "Input\r\n" + "Output\r\n" + "Clear\r\n" + "Credits\r\n" + "Exit\r\n" + "Settings\r\n" + "Input your text here!\r\n" + "Output text will be here!\r\n" + "Text input\r\n" + "Text output\r\n" + "Menu\r\n" + "Language settings\r\n" + "Save\r\n" + "#end#");
         } catch (IOException ex) {
             
         }
-        
     }
 }

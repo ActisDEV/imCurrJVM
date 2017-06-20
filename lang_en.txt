@@ -1,0 +1,18 @@
+LANGUAGE FILE FOR IMCURRJVM
+MADE BY ACTIS
+#begin#
+Choose file
+Input
+Output
+Clear
+Credits
+Exit
+Settings
+Input your text here!
+Output text will be here!
+Text input
+Text output
+Menu
+Language settings
+Save
+#end#
